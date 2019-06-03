@@ -41,27 +41,31 @@ class CalcController {
        return this._operation[this._operation.length - 1];
     }
 
+    setLastOperation(value){
+        this._operation[this._operation.length - 1] = value;
+    }
+
     isOperator(value) {
-        return (['+','-','*','/','%'].indexOf(value) > -1);
+        return (['+','-','*','%','/'].indexOf(value) > -1);
     }
 
     addOperation(value){
-
-       if (isNaN(this.getLastOperation())) { //ultimo valor digitado
+        //ultimo valor digitado
+       if (isNaN(this.getLastOperation())) { 
         //se for string cai aqui
             if (this.isOperator(value)){
                 //trocar o operado
-                this._operation[this._operation.length - 1] = value;
+                this.setLastOperation(value);
             } else if(isNaN(value)) {
                  //outra coisa
                  console.log(value);
             } else {
-                this._operation.push(newValue);
+                this._operation.push(value);
             }
        } else {
         //se for numero cai aqui
-        let newValue = this.getLastOperation.toString() + value.toString();
-        this._operation.push(value);
+        let newValue = this.getLastOperation().toString() + value.toString();
+        this.setLastOperation(parseInt(newValue));
        }
        
     }
@@ -71,7 +75,7 @@ class CalcController {
     }
 
     execBtn(value){
-
+        
         switch (value) {
             
             case 'ac':
@@ -91,15 +95,15 @@ class CalcController {
             break;
 
             case 'divisao':
-                this.addOperation('/');
-            break;
-
-            case 'multiplicacao':
                 this.addOperation('*');
             break;
 
-            case 'porcento':
+            case 'multiplicacao':
                 this.addOperation('%');
+            break;
+
+            case 'porcento':
+                this.addOperation('/');
             break;
 
             case 'igual':
@@ -120,7 +124,7 @@ class CalcController {
             case '7':
             case '8':
             case '9':
-                this._operation.addOperation(parseInt(value));
+                this.addOperation(parseInt(value));
             break;
 
             default:
@@ -131,6 +135,7 @@ class CalcController {
 
         }
     }
+
     initButtonsEvents(){
        let buttons = document.querySelectorAll("#buttons > g, #parts > g"); 
        buttons.forEach((btn, index) =>{
