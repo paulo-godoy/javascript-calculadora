@@ -21,6 +21,8 @@ class CalcController {
 
     }
 
+    //O metodo abaixo adiciona um input e coloca o valor do displayCalc dentro do input, adiciona o input na tela com 
+    //o appandChild o select permite selecionar o conteudo do input, e o document.execCommand("Copy") permite copiar
     copyToClipboard() {
 
         let input = document.createElement('input');
@@ -36,7 +38,8 @@ class CalcController {
         input.remove();
 
     }
-
+    
+    //metodo para colar
     pasteFromClipboard() {
 
         document.addEventListener('paste', e => {
